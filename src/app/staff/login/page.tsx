@@ -3,7 +3,7 @@ import { Icon } from "@/components/ui/Icon";
 import { StaffLoginForm } from "./StaffLoginForm";
 
 export const metadata: Metadata = {
-  title: "Staff Login | HEMA-Core",
+  title: "Sign in | HEMA-Core",
   robots: { index: false },
 };
 
@@ -21,7 +21,7 @@ export default async function StaffLoginPage({
           <div className="bg-secondary-container text-primary mx-auto mb-md flex h-14 w-14 items-center justify-center rounded-full">
             <Icon name="lock" className="text-[28px]" />
           </div>
-          <h1 className="text-headline-md text-primary mb-sm">Staff Login</h1>
+          <h1 className="text-headline-md text-primary mb-sm">Sign in</h1>
           <p className="text-body-sm text-on-surface-variant">
             Sign in with your department credentials to access the clinical
             workspace.

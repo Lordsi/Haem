@@ -57,7 +57,7 @@ export function TopNavBar() {
             href="/staff/login"
             className="bg-primary text-on-primary rounded-full px-lg py-2 text-label-md font-bold transition-opacity hover:opacity-90"
           >
-            Staff Login
+            Sign in
           </Link>
           <button
             type="button"

@@ -7,7 +7,7 @@
 -- run this against the SQL editor or via psql once after `supabase db push`.
 -- =============================================================================
 
-insert into public.articles (slug, title, excerpt, content, status, publication_date, cover_image_url)
+insert into public.articles (slug, title, excerpt, content, status, publication_date, cover_image_url, author_name)
 values
   (
     'ai-driven-morphology-analysis',
@@ -16,7 +16,8 @@ values
     'Our latest diagnostic update uses convolutional neural networks trained on hundreds of thousands of annotated blood smears to flag rare and atypical cell morphologies. In validation against expert hematopathologists, the system identified rare cell variants with 40% higher sensitivity than standard automated counters, while reducing manual review time for routine samples. This article details the validation methodology, the safeguards built into the human-in-the-loop workflow, and what it means for turnaround times in our laboratory.',
     'published',
     '2026-05-12',
-    'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1200&q=80'
+    'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1200&q=80',
+    'Dr. Sam Okonkwo'
   ),
   (
     'car-t-cell-therapy-tracking',
@@ -25,7 +26,8 @@ values
     'Chimeric antigen receptor (CAR) T-cell therapy has transformed outcomes for several hematologic malignancies, but monitoring cell expansion remains challenging. We describe a workflow that tracks CAR-T cell expansion rates in near real time, helping clinicians anticipate response and manage complications such as cytokine release syndrome earlier. Early results from our cohort suggest tighter monitoring correlates with improved management of adverse events.',
     'published',
     '2026-04-28',
-    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80'
+    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
+    'Prof. Naledi Khumalo'
   ),
   (
     'open-source-blood-smear-dataset',
@@ -34,7 +36,8 @@ values
     'Reproducible research depends on access to high-quality data. We are releasing 50,000 fully anonymized digital blood smears, reviewed and labeled by our hematopathology team, under an open research license. This article covers the de-identification process, the labeling schema, and how research groups can request access. We believe shared datasets are essential to building robust, generalizable diagnostic models.',
     'published',
     '2026-04-03',
-    'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80'
+    'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80',
+    'Dr. Sam Okonkwo'
   ),
   (
     'hemophilia-care-portal',
@@ -43,7 +46,8 @@ values
     'Consistent factor replacement logging improves care for people living with hemophilia, but paper logs are easily lost or incomplete. Our new patient-facing portal lets patients record infusions, bleeds, and symptoms from home, syncing securely with their care team. This article explains the privacy model behind the portal and how the data supports more responsive, personalized care.',
     'published',
     '2026-03-19',
-    'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=80'
+    'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=80',
+    'Prof. Naledi Khumalo'
   )
 on conflict (slug) do nothing;
 

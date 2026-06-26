@@ -22,6 +22,7 @@ export interface Article {
   publication_date: string | null;
   cover_image_url: string | null;
   status: "draft" | "published";
+  author_name: string | null;
 }
 
 export interface EventItem {
@@ -49,6 +50,7 @@ const SAMPLE_ARTICLES: Article[] = [
     cover_image_url:
       "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1200&q=80",
     status: "published",
+    author_name: "Dr. Sam Okonkwo",
   },
   {
     id: "sample-article-2",
@@ -62,6 +64,7 @@ const SAMPLE_ARTICLES: Article[] = [
     cover_image_url:
       "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
     status: "published",
+    author_name: "Prof. Naledi Khumalo",
   },
   {
     id: "sample-article-3",
@@ -75,6 +78,7 @@ const SAMPLE_ARTICLES: Article[] = [
     cover_image_url:
       "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80",
     status: "published",
+    author_name: "Dr. Sam Okonkwo",
   },
   {
     id: "sample-article-4",
@@ -88,6 +92,7 @@ const SAMPLE_ARTICLES: Article[] = [
     cover_image_url:
       "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=80",
     status: "published",
+    author_name: "Prof. Naledi Khumalo",
   },
 ];
 
@@ -121,8 +126,36 @@ const SAMPLE_EVENTS: EventItem[] = [
   },
 ];
 
-const ARTICLE_COLUMNS =
-  "id, slug, title, excerpt, content, publication_date, cover_image_url, status";
+const ARTICLE_COLUMNS = `
+  id,
+  slug,
+  title,
+  excerpt,
+  content,
+  publication_date,
+  cover_image_url,
+  status,
+  author_name,
+  author:users!articles_author_id_fkey ( name )
+`;
+
+function mapArticle(row: Record<string, unknown>): Article {
+  const author = row.author as unknown as { name: string | null } | null;
+  const linkedName = author?.name ?? null;
+  const storedName = row.author_name as string | null;
+
+  return {
+    id: row.id as string,
+    slug: row.slug as string,
+    title: row.title as string,
+    excerpt: row.excerpt as string | null,
+    content: row.content as string | null,
+    publication_date: row.publication_date as string | null,
+    cover_image_url: row.cover_image_url as string | null,
+    status: row.status as Article["status"],
+    author_name: storedName ?? linkedName,
+  };
+}
 const EVENT_COLUMNS =
   "id, title, description, event_date, location, registration_limit";
 
@@ -145,7 +178,7 @@ export async function getPublishedArticles(limit?: number): Promise<Article[]> {
 
     const { data, error } = await query;
     if (error) throw error;
-    return (data as Article[]) ?? [];
+    return (data ?? []).map((row) => mapArticle(row as Record<string, unknown>));
   } catch (error) {
     console.error("[content] getPublishedArticles failed, using fallback", error);
     return limit ? SAMPLE_ARTICLES.slice(0, limit) : SAMPLE_ARTICLES;
@@ -166,7 +199,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
       .eq("status", "published")
       .maybeSingle();
     if (error) throw error;
-    return (data as Article | null) ?? null;
+    return data ? mapArticle(data as Record<string, unknown>) : null;
   } catch (error) {
     console.error("[content] getArticleBySlug failed, using fallback", error);
     return SAMPLE_ARTICLES.find((a) => a.slug === slug) ?? null;

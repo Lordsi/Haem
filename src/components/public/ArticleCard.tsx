@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import type { Article } from "@/lib/data/content";
-import { formatDate } from "@/lib/format";
+import { ArticleByline } from "@/components/public/ArticleByline";
 import { Icon } from "@/components/ui/Icon";
 
 export function ArticleCard({ article }: { article: Article }) {
@@ -20,11 +20,11 @@ export function ArticleCard({ article }: { article: Article }) {
         </div>
       ) : null}
       <div className="flex flex-1 flex-col p-lg">
-        {article.publication_date ? (
-          <span className="text-label-md text-secondary mb-sm font-bold uppercase">
-            {formatDate(article.publication_date)}
-          </span>
-        ) : null}
+        <ArticleByline
+          authorName={article.author_name}
+          publicationDate={article.publication_date}
+          className="mb-sm"
+        />
         <h3 className="text-headline-md text-primary group-hover:text-on-tertiary-container mb-sm leading-tight transition-colors">
           {article.title}
         </h3>

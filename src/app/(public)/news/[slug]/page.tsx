@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getArticleBySlug } from "@/lib/data/content";
-import { formatDate } from "@/lib/format";
+import { ArticleByline } from "@/components/public/ArticleByline";
 import { Icon } from "@/components/ui/Icon";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -39,12 +39,12 @@ export default async function ArticlePage({ params }: Params) {
       </Link>
 
       <div className="mx-auto max-w-[48rem]">
-        {article.publication_date ? (
-          <span className="text-label-md text-secondary font-bold uppercase">
-            {formatDate(article.publication_date)}
-          </span>
-        ) : null}
-        <h1 className="text-headline-lg text-primary mt-sm mb-lg">
+        <ArticleByline
+          authorName={article.author_name}
+          publicationDate={article.publication_date}
+          className="mb-md"
+        />
+        <h1 className="text-headline-lg text-primary mb-lg">
           {article.title}
         </h1>
 

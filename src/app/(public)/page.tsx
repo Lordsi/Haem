@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 import { StatusChip } from "@/components/ui/StatusChip";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ArticleCard } from "@/components/public/ArticleCard";
+import { ArticleByline } from "@/components/public/ArticleByline";
 import { EventRow } from "@/components/public/EventRow";
 
 const EXPERTISE = [
@@ -136,6 +137,12 @@ export default async function LandingPage() {
                     <h3 className="text-headline-lg mb-sm text-white">
                       {feature.title}
                     </h3>
+                    <ArticleByline
+                      authorName={feature.author_name}
+                      publicationDate={feature.publication_date}
+                      tone="inverse"
+                      className="mb-md"
+                    />
                     {feature.excerpt ? (
                       <p className="text-on-primary-container text-body-md mb-md line-clamp-2">
                         {feature.excerpt}
