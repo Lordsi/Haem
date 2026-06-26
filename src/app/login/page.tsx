@@ -59,8 +59,22 @@ export default async function LoginPage({
         </div>
 
         {/* Form panel */}
-        <div className="flex flex-col justify-center p-xl sm:p-[3rem]">
-          <div className="mx-auto w-full max-w-[22rem]">
+        <div className="relative flex flex-col justify-center overflow-hidden p-xl sm:p-[3rem]">
+          {/* Faint microscope backdrop — small screens only (desktop uses the side panel) */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 md:hidden"
+          >
+            <Image
+              src="/login-microscope.png"
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover object-center opacity-[0.12] mix-blend-multiply"
+            />
+          </div>
+
+          <div className="relative z-10 mx-auto w-full max-w-[22rem]">
             <h1 className="text-headline-lg text-on-surface mb-xl">Sign in</h1>
             <LoginForm next={next} />
           </div>
