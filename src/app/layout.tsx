@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "Hematology Department Management & Information System — clinical care, research, and patient management.",
+    "Hematology Department Management & Information System for clinical care, research, and patient management.",
 };
 
 export default function RootLayout({

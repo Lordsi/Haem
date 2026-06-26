@@ -41,7 +41,7 @@ export default async function LoginPage({
               WELCOME
             </h2>
             <p className="text-body-md text-on-surface-variant mt-sm max-w-[24ch]">
-              Sign in to your hematology workspace — clinical care, research,
+              Sign in to your hematology workspace for clinical care, research,
               and patient management.
             </p>
           </div>

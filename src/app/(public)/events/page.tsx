@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 export const metadata: Metadata = {
   title: "Events & Seminars | HEMA-Core",
   description:
-    "Hematology seminars, workshops, and research events — browse and register.",
+    "Hematology seminars, workshops, and research events. Browse and register.",
 };
 
 export default async function EventsPage() {

@@ -109,7 +109,7 @@ export default async function StaffCaseDetailPage({
                   </time>
                 </div>
                 <p className="text-body-md whitespace-pre-wrap">
-                  {review.notes ?? "—"}
+                  {review.notes ?? "No notes recorded."}
                 </p>
               </li>
             ))}

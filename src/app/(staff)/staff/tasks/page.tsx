@@ -32,7 +32,7 @@ export default async function StaffTasksPage() {
         </h2>
         {open.length === 0 ? (
           <p className="text-body-sm text-on-surface-variant">
-            No open tasks — you&apos;re all caught up.
+            No open tasks. You&apos;re all caught up.
           </p>
         ) : (
           <ul className="space-y-md">

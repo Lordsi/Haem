@@ -27,7 +27,7 @@ export function Footer() {
           </div>
           <p className="text-body-sm text-secondary mb-md leading-relaxed">
             The hematology department&apos;s diagnostic and management
-            information system — combining clinical care, research, and patient
+            information system, combining clinical care, research, and patient
             management with a focus on precision and reliability.
           </p>
           <div className="flex gap-md">

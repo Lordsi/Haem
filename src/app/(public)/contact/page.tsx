@@ -16,7 +16,7 @@ const DETAILS = [
     label: "Address",
     value: "Hematology Department, Level 4, Main Hospital Building",
   },
-  { icon: "schedule", label: "Hours", value: "Mon–Fri, 8:00 AM – 5:00 PM" },
+  { icon: "schedule", label: "Hours", value: "Mon to Fri, 8:00 AM to 5:00 PM" },
 ];
 
 export default function ContactPage() {

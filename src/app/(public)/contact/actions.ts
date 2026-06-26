@@ -37,7 +37,7 @@ export async function submitContactMessage(
   if (!isSupabaseConfigured()) {
     return {
       status: "success",
-      message: `Thanks, ${name}! Your message has been received (demo mode — connect a database to persist it).`,
+      message: `Thanks, ${name}! Your message has been received (demo mode; connect a database to persist it).`,
     };
   }
 

@@ -33,7 +33,7 @@ export default async function StaffDashboardPage() {
         title={`Good day, ${greeting}`}
         description={
           profile.role === "dept_head"
-            ? "Department overview — all cases and team activity."
+            ? "Department overview of all cases and team activity."
             : "Your assigned cases, tasks, and upcoming appointments."
         }
       />
@@ -134,7 +134,7 @@ export default async function StaffDashboardPage() {
                       {appt.patient_name}
                     </p>
                     <p className="text-body-sm text-on-surface-variant">
-                      {formatTime(appt.appointment_date)} —{" "}
+                      {formatTime(appt.appointment_date)} ·{" "}
                       {appt.purpose ?? "Appointment"}
                     </p>
                   </div>

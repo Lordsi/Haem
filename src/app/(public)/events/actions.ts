@@ -42,7 +42,7 @@ export async function registerForEvent(
   if (!isSupabaseConfigured()) {
     return {
       status: "success",
-      message: `Thanks, ${name}! Your registration has been recorded (demo mode — connect a database to persist it).`,
+      message: `Thanks, ${name}! Your registration has been recorded (demo mode; connect a database to persist it).`,
     };
   }
 

@@ -57,7 +57,7 @@ export default async function LandingPage() {
             </h1>
             <p className="text-body-lg text-on-surface-variant mb-xl leading-relaxed">
               Our department bridges laboratory science and clinical
-              decision-making — combining expert blood-sciences care, active
+              decision-making, combining expert blood-sciences care, active
               research, and a secure patient management system.
             </p>
             <div className="flex flex-wrap gap-md">

@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 export const metadata: Metadata = {
   title: "About | HEMA-Core",
   description:
-    "About the hematology department — our mission, expertise, and team.",
+    "About the hematology department: our mission, expertise, and team.",
 };
 
 const STATS = [
@@ -51,7 +51,7 @@ export default function AboutPage() {
           We combine world-class blood-sciences expertise with modern
           information systems to diagnose, treat, and manage complex
           hematological conditions. Our work spans routine diagnostics,
-          malignant hematology, hemostasis, and molecular medicine — all
+          malignant hematology, hemostasis, and molecular medicine, all
           underpinned by a commitment to precision, safety, and patient privacy.
         </p>
       </div>

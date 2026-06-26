@@ -44,7 +44,7 @@ export default async function PatientPortalPage() {
       <div>
         <h1 className="text-headline-lg text-primary">Welcome, {greeting}</h1>
         <p className="text-body-md text-on-surface-variant mt-sm">
-          Your hematology care overview — cases, appointments, and messages with
+          Your hematology care overview: cases, appointments, and messages with
           your care team.
         </p>
       </div>
