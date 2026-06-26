@@ -31,7 +31,11 @@ export function PatientShell({
     <div className="bg-surface-bright min-h-full">
       <header className="bg-surface-container-lowest border-outline-variant border-b">
         <div className="container-max flex items-center justify-between px-lg py-md">
-          <Link href="/patient" className="flex items-center gap-sm">
+          <Link
+            href="/"
+            className="flex items-center gap-sm"
+            title="Back to HEMA-Core home"
+          >
             <Icon name="biotech" className="text-primary text-[24px]" />
             <span className="text-body-md text-primary font-bold">
               HEMA-Core

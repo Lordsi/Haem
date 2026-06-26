@@ -30,7 +30,11 @@ export function StaffShell({
     <div className="bg-surface-bright flex min-h-full">
       <aside className="bg-primary text-on-primary hidden w-60 shrink-0 flex-col md:flex">
         <div className="border-on-primary/10 border-b px-lg py-lg">
-          <Link href="/staff" className="flex items-center gap-sm">
+          <Link
+            href="/"
+            className="flex items-center gap-sm"
+            title="Back to HEMA-Core home"
+          >
             <Icon name="biotech" className="text-[24px]" />
             <span className="text-body-md font-bold">HEMA-Core</span>
           </Link>
@@ -78,7 +82,13 @@ export function StaffShell({
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="bg-surface-container-lowest border-outline-variant border-b px-lg py-md md:hidden">
           <div className="flex items-center justify-between gap-md">
-            <span className="text-body-md text-primary font-bold">HEMA-Core</span>
+            <Link
+              href="/"
+              className="text-body-md text-primary font-bold"
+              title="Back to HEMA-Core home"
+            >
+              HEMA-Core
+            </Link>
             <nav className="flex gap-sm">
               {NAV.map((item) => (
                 <Link
