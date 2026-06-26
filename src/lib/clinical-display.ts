@@ -47,3 +47,35 @@ export function taskStatusTone(
       return "neutral";
   }
 }
+
+export type AppointmentStatus =
+  | "scheduled"
+  | "completed"
+  | "cancelled"
+  | "no_show";
+
+export function appointmentStatusLabel(status: string): string {
+  const labels: Record<AppointmentStatus, string> = {
+    scheduled: "Scheduled",
+    completed: "Completed",
+    cancelled: "Cancelled",
+    no_show: "No show",
+  };
+  return labels[status as AppointmentStatus] ?? status;
+}
+
+export function appointmentStatusTone(
+  status: string,
+): "neutral" | "primary" | "success" | "critical" {
+  switch (status) {
+    case "scheduled":
+      return "primary";
+    case "completed":
+      return "success";
+    case "cancelled":
+    case "no_show":
+      return "critical";
+    default:
+      return "neutral";
+  }
+}
