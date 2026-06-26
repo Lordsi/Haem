@@ -3,22 +3,24 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { Icon } from "@/components/ui/Icon";
 import { signIn, type LoginState } from "./actions";
 
 const INITIAL: LoginState = { status: "idle" };
+
+const FIELD =
+  "text-body-md text-on-surface placeholder:text-on-surface-variant/50 w-full border-0 border-b border-outline-variant bg-transparent pb-2 pt-1 transition-colors focus:border-primary focus:outline-none focus:ring-0";
 
 export function LoginForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(signIn, INITIAL);
 
   return (
-    <form action={action} className="space-y-md text-left">
+    <form action={action} className="space-y-lg text-left">
       {next ? <input type="hidden" name="next" value={next} /> : null}
 
       <div>
         <label
           htmlFor="email"
-          className="text-label-md text-on-surface-variant mb-xs block uppercase"
+          className="text-body-sm text-on-surface-variant mb-xs block font-medium"
         >
           Email
         </label>
@@ -28,25 +30,33 @@ export function LoginForm({ next }: { next?: string }) {
           type="email"
           autoComplete="email"
           required
-          className="border-outline-variant bg-surface-container-lowest text-body-md w-full rounded-lg border px-md py-2.5 focus:outline-none focus:ring-2 focus:ring-primary"
+          className={FIELD}
           placeholder="you@hospital.org"
         />
       </div>
 
       <div>
-        <label
-          htmlFor="password"
-          className="text-label-md text-on-surface-variant mb-xs block uppercase"
-        >
-          Password
-        </label>
+        <div className="mb-xs flex items-baseline justify-between gap-md">
+          <label
+            htmlFor="password"
+            className="text-body-sm text-on-surface-variant font-medium"
+          >
+            Password
+          </label>
+          <Link
+            href="/contact"
+            className="text-tertiary text-body-sm font-semibold hover:underline"
+          >
+            Forgot password?
+          </Link>
+        </div>
         <input
           id="password"
           name="password"
           type="password"
           autoComplete="current-password"
           required
-          className="border-outline-variant bg-surface-container-lowest text-body-md w-full rounded-lg border px-md py-2.5 focus:outline-none focus:ring-2 focus:ring-primary"
+          className={FIELD}
         />
       </div>
 
@@ -59,17 +69,22 @@ export function LoginForm({ next }: { next?: string }) {
         </p>
       ) : null}
 
-      <Button type="submit" className="w-full" disabled={pending}>
+      <Button
+        type="submit"
+        size="lg"
+        className="mt-md w-full rounded-xl"
+        disabled={pending}
+      >
         {pending ? "Signing in…" : "Sign in"}
       </Button>
 
-      <p className="text-body-sm text-on-surface-variant text-center">
+      <p className="text-body-sm text-on-surface-variant pt-sm text-center">
+        Need access?{" "}
         <Link
-          href="/"
-          className="text-primary inline-flex items-center gap-xs font-semibold hover:underline"
+          href="/contact"
+          className="text-primary font-semibold hover:underline"
         >
-          <Icon name="arrow_back" className="text-[18px]" />
-          Back to home
+          Contact the department
         </Link>
       </p>
     </form>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Icon } from "@/components/ui/Icon";
 import { getUserProfile, getRoleHomePath } from "@/lib/auth/session";
@@ -23,20 +25,46 @@ export default async function LoginPage({
   }
 
   return (
-    <main className="flex flex-1 items-center justify-center px-lg py-xl">
-      <div className="bg-surface-container-lowest border-outline-variant w-full max-w-[26rem] rounded-2xl border p-xl">
-        <div className="mb-lg text-center">
-          <div className="bg-secondary-container text-primary mx-auto mb-md flex h-14 w-14 items-center justify-center rounded-full">
-            <Icon name="lock" className="text-[28px]" />
+    <main className="bg-surface-dim/30 flex flex-1 items-center justify-center p-md sm:p-xl">
+      <div className="bg-surface-container-lowest shadow-xl grid w-full max-w-[60rem] overflow-hidden rounded-3xl md:grid-cols-2">
+        {/* Illustration panel */}
+        <div className="from-secondary-container via-surface-container-low to-tertiary-fixed/40 relative hidden flex-col justify-between bg-gradient-to-br p-xl md:flex">
+          <div>
+            <Link
+              href="/"
+              className="text-tertiary inline-flex items-center gap-xs text-label-md font-bold uppercase tracking-wide hover:opacity-80"
+            >
+              <Icon name="biotech" className="text-[20px]" />
+              HEMA-Core
+            </Link>
+            <h2 className="text-display-lg text-primary mt-lg tracking-[0.12em]">
+              WELCOME
+            </h2>
+            <p className="text-body-md text-on-surface-variant mt-sm max-w-[24ch]">
+              Sign in to your hematology workspace — clinical care, research,
+              and patient management.
+            </p>
           </div>
-          <h1 className="text-headline-md text-primary mb-sm">Sign in</h1>
-          <p className="text-body-sm text-on-surface-variant">
-            Sign in with your HEMA-Core credentials. You&apos;ll be taken to
-            your workspace automatically — staff to the clinical dashboard,
-            patients to the portal.
-          </p>
+
+          <div className="relative mt-lg min-h-[18rem] flex-1">
+            <Image
+              src="/login-microscope.png"
+              alt="Watercolor illustration of a microscope surrounded by flowers"
+              fill
+              priority
+              sizes="(min-width: 768px) 30rem, 100vw"
+              className="object-contain object-bottom mix-blend-multiply"
+            />
+          </div>
         </div>
-        <LoginForm next={next} />
+
+        {/* Form panel */}
+        <div className="flex flex-col justify-center p-xl sm:p-[3rem]">
+          <div className="mx-auto w-full max-w-[22rem]">
+            <h1 className="text-headline-lg text-on-surface mb-xl">Sign in</h1>
+            <LoginForm next={next} />
+          </div>
+        </div>
       </div>
     </main>
   );
