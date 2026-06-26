@@ -3,6 +3,7 @@ import type { TaskStatus } from "@/lib/data/tasks";
 
 export function caseStatusLabel(status: CaseStatus): string {
   const labels: Record<CaseStatus, string> = {
+    pending_review: "Pending consultant review",
     open: "Open",
     active: "Active",
     resolved: "Resolved",
@@ -13,8 +14,10 @@ export function caseStatusLabel(status: CaseStatus): string {
 
 export function caseStatusTone(
   status: CaseStatus,
-): "neutral" | "primary" | "success" | "critical" {
+): "neutral" | "primary" | "success" | "critical" | "warning" {
   switch (status) {
+    case "pending_review":
+      return "warning";
     case "active":
       return "primary";
     case "resolved":

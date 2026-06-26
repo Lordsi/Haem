@@ -40,12 +40,12 @@ export interface EventItem {
 const SAMPLE_ARTICLES: Article[] = [
   {
     id: "sample-article-1",
-    slug: "ai-driven-morphology-analysis",
-    title: "AI-Driven Morphology Analysis Integrated into the Diagnostic Core",
+    slug: "iso-15189-reaccreditation",
+    title: "Laboratory Renews ISO 15189 Accreditation",
     excerpt:
-      "Neural networks now identify rare cell variants with 40% higher sensitivity than standard automated counters.",
+      "Our diagnostic laboratory has renewed its ISO 15189 accreditation following this year's external assessment.",
     content:
-      "Our latest diagnostic update uses convolutional neural networks trained on hundreds of thousands of annotated blood smears to flag rare and atypical cell morphologies. In validation against expert hematopathologists, the system identified rare cell variants with 40% higher sensitivity than standard automated counters, while reducing manual review time for routine samples.\n\nThis article details the validation methodology, the safeguards built into the human-in-the-loop workflow, and what it means for turnaround times in our laboratory.",
+      "The department's diagnostic laboratory has successfully renewed its ISO 15189 accreditation after a two-day on-site assessment by external auditors. The review covered our quality management system, equipment calibration records, staff competency files, and the full testing workflow from sample reception to result reporting.\n\nAccreditation is renewed on a regular cycle and confirms that our results meet recognised standards for technical competence and reliability. We thank the laboratory and quality teams for the preparation that made this possible, and we remain committed to the continuous improvement the standard requires.",
     publication_date: "2026-05-12",
     cover_image_url:
       "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1200&q=80",
@@ -54,43 +54,43 @@ const SAMPLE_ARTICLES: Article[] = [
   },
   {
     id: "sample-article-2",
-    slug: "car-t-cell-therapy-tracking",
-    title: "Real-Time CAR-T Cell Therapy Tracking",
+    slug: "new-analyzer-faster-blood-counts",
+    title: "New Analyzer Shortens Full Blood Count Turnaround",
     excerpt:
-      "A new monitoring approach lets clinicians follow CAR-T cell expansion rates throughout treatment.",
+      "A newly commissioned haematology analyzer has reduced the average turnaround time for routine full blood counts.",
     content:
-      "Chimeric antigen receptor (CAR) T-cell therapy has transformed outcomes for several hematologic malignancies, but monitoring cell expansion remains challenging. We describe a workflow that tracks CAR-T cell expansion rates in near real time, helping clinicians anticipate response and manage complications such as cytokine release syndrome earlier.\n\nEarly results from our cohort suggest tighter monitoring correlates with improved management of adverse events.",
+      "We have commissioned a new automated haematology analyzer in the core laboratory. Since going live, the average turnaround time for routine full blood counts has dropped from around four hours to under ninety minutes, with samples flagged for abnormal results automatically routed for manual review.\n\nThe analyzer was validated against our existing platform over several weeks before being brought into routine use. Clinicians should see faster results for ward and outpatient requests, while urgent samples continue to be prioritised as before.",
     publication_date: "2026-04-28",
     cover_image_url:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1733119883210-04f09d5f86df?auto=format&fit=crop&w=1200&q=80",
     status: "published",
     author_name: "Prof. Naledi Khumalo",
   },
   {
     id: "sample-article-3",
-    slug: "open-source-blood-smear-dataset",
-    title: "Releasing 50,000 Anonymized Blood Smears for Global Research",
+    slug: "jak2-molecular-testing-in-house",
+    title: "JAK2 V617F Molecular Testing Now Available In-House",
     excerpt:
-      "We are contributing a large, fully anonymized dataset to accelerate hematology research worldwide.",
+      "Testing for the JAK2 V617F mutation is now performed on site, removing the need to send samples to an external reference lab.",
     content:
-      "Reproducible research depends on access to high-quality data. We are releasing 50,000 fully anonymized digital blood smears, reviewed and labeled by our hematopathology team, under an open research license.\n\nThis article covers the de-identification process, the labeling schema, and how research groups can request access.",
+      "The laboratory has brought JAK2 V617F mutation testing in-house. Previously these samples were referred to an external reference laboratory, which added several days to the reporting time. Performing the assay on site is expected to return results within the same week the sample is received.\n\nThe test supports the investigation of suspected myeloproliferative neoplasms such as polycythaemia vera and essential thrombocythaemia. Requesting clinicians can order it through the usual electronic request form, and the laboratory team is available to advise on sample requirements.",
     publication_date: "2026-04-03",
     cover_image_url:
-      "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1758656803198-eeea35110219?auto=format&fit=crop&w=1200&q=80",
     status: "published",
     author_name: "Dr. Sam Okonkwo",
   },
   {
     id: "sample-article-4",
-    slug: "hemophilia-care-portal",
-    title: "Patient Portal Launched for Factor Replacement Logging",
+    slug: "patient-portal-bleeding-disorder-logging",
+    title: "Patient Portal Now Open for Bleeding Disorder Logging",
     excerpt:
-      "People living with hemophilia can now log factor replacement at home, giving care teams a clearer picture.",
+      "People living with a bleeding disorder can now log treatment and symptoms from home, giving their care team a clearer picture.",
     content:
-      "Consistent factor replacement logging improves care for people living with hemophilia, but paper logs are easily lost or incomplete. Our new patient-facing portal lets patients record infusions, bleeds, and symptoms from home, syncing securely with their care team.\n\nThis article explains the privacy model behind the portal and how the data supports more responsive, personalized care.",
+      "Keeping an accurate record of factor replacement, bleeds, and symptoms helps the care team adjust treatment, but paper diaries are easily lost or left incomplete. Our patient portal now lets patients record this information from home, where it is shared securely with the haematology team.\n\nAccess is offered to patients already under the care of the department. If you would like to use the portal, please speak to your care coordinator at your next appointment, and our team will help you get set up.",
     publication_date: "2026-03-19",
     cover_image_url:
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
     status: "published",
     author_name: "Prof. Naledi Khumalo",
   },

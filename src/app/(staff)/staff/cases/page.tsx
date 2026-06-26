@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireStaff } from "@/lib/auth/session";
 import { listCases } from "@/lib/data/clinical";
-import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StatusChip } from "@/components/ui/StatusChip";
+import { Button } from "@/components/ui/Button";
+import { Icon } from "@/components/ui/Icon";
 import { formatDate } from "@/lib/format";
 import { caseStatusTone, caseStatusLabel } from "@/lib/clinical-display";
 
@@ -15,23 +16,37 @@ export const metadata: Metadata = {
 export default async function StaffCasesPage() {
   const profile = await requireStaff();
   const cases = await listCases(profile.id);
+  const isEmpty = cases.length === 0;
 
   return (
     <div>
-      <SectionHeader
-        title="Patient cases"
-        description={
-          profile.role === "dept_head"
+      <div className="mb-xl max-w-[42rem]">
+        <h2 className="text-headline-lg text-primary">Patient cases</h2>
+        <p className="text-body-md text-on-surface-variant mt-sm">
+          {profile.role === "dept_head"
             ? "All department cases. Sensitive fields are encrypted at rest."
-            : "Cases assigned to you. Access is logged for audit."
-        }
-      />
+            : "Cases assigned to you. Access is logged for audit."}
+        </p>
+      </div>
 
-      {cases.length === 0 ? (
-        <div className="bg-surface-container-lowest border-outline-variant rounded-xl border p-xl text-center">
-          <p className="text-body-md text-on-surface-variant">
-            No cases found in your scope.
+      {isEmpty ? (
+        <div className="bg-surface-container-lowest border-outline-variant rounded-xl border px-lg py-xl text-center">
+          <div className="bg-secondary-container text-primary mx-auto mb-md flex h-14 w-14 items-center justify-center rounded-full">
+            <Icon name="folder_open" className="text-[28px]" />
+          </div>
+          <h3 className="text-headline-md text-primary">No cases yet</h3>
+          <p className="text-body-md text-on-surface-variant mx-auto mt-sm max-w-md">
+            {profile.role === "dept_head"
+              ? "No cases have been opened in the department yet."
+              : "You have no cases assigned yet."}{" "}
+            Open a new case to start tracking a patient through review.
           </p>
+          <div className="mt-lg flex justify-center">
+            <Button href="/staff/cases/new">
+              <Icon name="add" className="text-[20px]" />
+              Open a new case
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="bg-surface-container-lowest border-outline-variant overflow-hidden rounded-xl border">
@@ -80,6 +95,17 @@ export default async function StaffCasesPage() {
           </table>
         </div>
       )}
+
+      {!isEmpty ? (
+        <Link
+          href="/staff/cases/new"
+          aria-label="Open a new case"
+          className="bg-primary text-on-primary fixed bottom-6 right-6 z-30 inline-flex items-center gap-sm rounded-full px-lg py-3 text-body-md font-semibold shadow-lg transition-all hover:opacity-90 hover:shadow-xl active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        >
+          <Icon name="add" className="text-[22px]" />
+          New case
+        </Link>
+      ) : null}
     </div>
   );
 }

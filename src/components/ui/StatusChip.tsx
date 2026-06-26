@@ -1,12 +1,19 @@
 import type { ReactNode } from "react";
 
-type Tone = "neutral" | "primary" | "critical" | "success" | "category";
+type Tone =
+  | "neutral"
+  | "primary"
+  | "critical"
+  | "success"
+  | "warning"
+  | "category";
 
 const TONES: Record<Tone, string> = {
   neutral: "bg-surface-container-highest text-on-surface-variant",
   primary: "bg-secondary-container text-on-secondary-container",
   critical: "bg-tertiary-fixed text-on-tertiary-container",
   success: "bg-emerald-100 text-emerald-800",
+  warning: "bg-amber-100 text-amber-800",
   category: "bg-secondary-container text-on-secondary-container",
 };
 

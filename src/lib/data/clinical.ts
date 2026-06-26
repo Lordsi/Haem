@@ -1,14 +1,23 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { decryptFields } from "@/lib/crypto/fieldEncryption";
+import {
+  decryptFields,
+  encryptField,
+  encryptFields,
+} from "@/lib/crypto/fieldEncryption";
 import { ENCRYPTED_FIELDS } from "@/lib/crypto/encryptedFields";
 import { recordAudit, recordAuditBatch } from "@/lib/audit";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import type { UserRole } from "@/lib/auth/types";
 
-export type CaseStatus = "open" | "active" | "resolved" | "closed";
+export type CaseStatus =
+  | "pending_review"
+  | "open"
+  | "active"
+  | "resolved"
+  | "closed";
 
 export interface PatientSummary {
   id: string;
@@ -31,6 +40,7 @@ export interface CaseSummary {
 export interface CaseDetail extends CaseSummary {
   diagnosis: string | null;
   treatment_plan: string | null;
+  review_date: string | null;
 }
 
 export interface ReviewRecord {
@@ -132,6 +142,7 @@ export async function getCaseDetail(
       status,
       diagnosis,
       treatment_plan,
+      review_date,
       created_at,
       updated_at,
       assigned_to,
@@ -281,8 +292,15 @@ export async function getStaffDashboardStats(userId: string, role: UserRole) {
 /** Count cases grouped by status for overview cards. */
 export async function getCaseStatusCounts(): Promise<Record<CaseStatus, number>> {
   const supabase = await createClient();
-  const statuses: CaseStatus[] = ["open", "active", "resolved", "closed"];
+  const statuses: CaseStatus[] = [
+    "pending_review",
+    "open",
+    "active",
+    "resolved",
+    "closed",
+  ];
   const counts: Record<CaseStatus, number> = {
+    pending_review: 0,
     open: 0,
     active: 0,
     resolved: 0,
@@ -303,4 +321,164 @@ export async function getCaseStatusCounts(): Promise<Record<CaseStatus, number>>
   });
 
   return counts;
+}
+
+/** Patients the current user can attach a new case to (RLS-scoped). */
+export async function listPatientsForSelection(): Promise<PatientSummary[]> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("patients")
+    .select("id, patient_code, name, date_of_birth, sex")
+    .order("name", { ascending: true });
+
+  if (error) throw error;
+  return (data ?? []) as PatientSummary[];
+}
+
+export interface NewPatientInput {
+  name: string;
+  patient_code: string;
+  date_of_birth?: string | null;
+  sex?: string | null;
+  contact_info?: string | null;
+}
+
+export interface CreateCaseInput {
+  actorId: string;
+  existingPatientId?: string | null;
+  newPatient?: NewPatientInput | null;
+  diagnosis?: string | null;
+  treatmentPlan?: string | null;
+  reviewDate?: string | null;
+}
+
+/**
+ * Open a new case. New cases enter the "pending_review" state so a consultant /
+ * department head signs off before they go active. Uses the service-role client
+ * (caller must already be an authenticated staff member) so the freshly created
+ * patient + case rows can be returned before RLS-linking rows exist.
+ */
+export async function createCase(input: CreateCaseInput): Promise<string> {
+  const admin = createAdminClient();
+
+  let patientId = input.existingPatientId ?? null;
+
+  if (!patientId) {
+    if (!input.newPatient) {
+      throw new Error("A patient is required to open a case.");
+    }
+    const np = input.newPatient;
+    const encrypted = encryptFields(
+      { contact_info: np.contact_info ?? null },
+      ["contact_info"],
+    );
+
+    const { data: patient, error: patientError } = await admin
+      .from("patients")
+      .insert({
+        patient_code: np.patient_code,
+        name: np.name,
+        date_of_birth: np.date_of_birth || null,
+        sex: np.sex || null,
+        contact_info: encrypted.contact_info,
+        created_by: input.actorId,
+      })
+      .select("id")
+      .single();
+
+    if (patientError) throw patientError;
+    patientId = patient.id as string;
+
+    await recordAudit(admin, {
+      userId: input.actorId,
+      action: "created_patient",
+      tableName: "patients",
+      recordId: patientId,
+    });
+  }
+
+  const encryptedCase = encryptFields(
+    {
+      diagnosis: input.diagnosis ?? null,
+      treatment_plan: input.treatmentPlan ?? null,
+    },
+    ["diagnosis", "treatment_plan"],
+  );
+
+  const { data: created, error } = await admin
+    .from("cases")
+    .insert({
+      patient_id: patientId,
+      assigned_to: input.actorId,
+      diagnosis: encryptedCase.diagnosis,
+      treatment_plan: encryptedCase.treatment_plan,
+      review_date: input.reviewDate || null,
+      status: "pending_review",
+    })
+    .select("id")
+    .single();
+
+  if (error) throw error;
+  const caseId = created.id as string;
+
+  await recordAudit(admin, {
+    userId: input.actorId,
+    action: "created_case",
+    tableName: "cases",
+    recordId: caseId,
+  });
+
+  return caseId;
+}
+
+/** Add a consultation / review note to a case (RLS-scoped insert). */
+export async function addCaseReview(
+  caseId: string,
+  authorId: string,
+  notes: string,
+): Promise<void> {
+  const { supabase, admin } = await getClients();
+
+  const { data, error } = await supabase
+    .from("reviews")
+    .insert({
+      case_id: caseId,
+      author_id: authorId,
+      notes: encryptField(notes),
+    })
+    .select("id")
+    .single();
+
+  if (error) throw error;
+
+  await recordAudit(admin, {
+    userId: authorId,
+    action: "created_review",
+    tableName: "reviews",
+    recordId: data.id as string,
+  });
+}
+
+/** Move a case to a new status (RLS enforces assigned staff / dept head). */
+export async function updateCaseStatus(
+  caseId: string,
+  userId: string,
+  status: CaseStatus,
+): Promise<void> {
+  const { supabase, admin } = await getClients();
+
+  const { error } = await supabase
+    .from("cases")
+    .update({ status })
+    .eq("id", caseId);
+
+  if (error) throw error;
+
+  await recordAudit(admin, {
+    userId,
+    action: "updated_case",
+    tableName: "cases",
+    recordId: caseId,
+  });
 }

@@ -7,6 +7,7 @@ import { StatusChip } from "@/components/ui/StatusChip";
 import { Icon } from "@/components/ui/Icon";
 import { formatDate } from "@/lib/format";
 import { caseStatusTone, caseStatusLabel } from "@/lib/clinical-display";
+import { CaseStatusControl, AddReviewForm } from "./CaseControls";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -59,6 +60,26 @@ export default async function StaffCaseDetailPage({
         </div>
       </div>
 
+      <div className="bg-surface-container-lowest border-outline-variant rounded-xl border p-lg">
+        {caseDetail.review_date ? (
+          <p className="text-body-sm text-on-surface-variant mb-md flex items-center gap-xs">
+            <Icon name="event" className="text-[18px]" />
+            Next review scheduled for{" "}
+            <span className="text-on-surface font-semibold">
+              {formatDate(caseDetail.review_date)}
+            </span>
+          </p>
+        ) : null}
+        <CaseStatusControl caseId={caseDetail.id} current={caseDetail.status} />
+        {caseDetail.status === "pending_review" ? (
+          <p className="text-body-sm text-on-surface-variant mt-sm flex items-center gap-xs">
+            <Icon name="info" className="text-[18px]" />
+            Awaiting consultant review. A department head can comment below, then
+            move it to Active or Resolved.
+          </p>
+        ) : null}
+      </div>
+
       <div className="grid gap-xl lg:grid-cols-2">
         <section className="bg-surface-container-lowest border-outline-variant rounded-xl border p-lg">
           <h2 className="text-headline-md text-primary mb-md flex items-center gap-sm">
@@ -86,6 +107,11 @@ export default async function StaffCaseDetailPage({
           <Icon name="clinical_notes" className="text-[22px]" />
           Clinical reviews
         </h2>
+
+        <div className="border-outline-variant mb-lg border-b pb-lg">
+          <AddReviewForm caseId={caseDetail.id} />
+        </div>
+
         {reviews.length === 0 ? (
           <p className="text-body-sm text-on-surface-variant">
             No review notes yet.

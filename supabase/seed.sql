@@ -10,43 +10,43 @@
 insert into public.articles (slug, title, excerpt, content, status, publication_date, cover_image_url, author_name)
 values
   (
-    'ai-driven-morphology-analysis',
-    'AI-Driven Morphology Analysis Integrated into the Diagnostic Core',
-    'Neural networks now identify rare cell variants with 40% higher sensitivity than standard automated counters.',
-    'Our latest diagnostic update uses convolutional neural networks trained on hundreds of thousands of annotated blood smears to flag rare and atypical cell morphologies. In validation against expert hematopathologists, the system identified rare cell variants with 40% higher sensitivity than standard automated counters, while reducing manual review time for routine samples. This article details the validation methodology, the safeguards built into the human-in-the-loop workflow, and what it means for turnaround times in our laboratory.',
+    'iso-15189-reaccreditation',
+    'Laboratory Renews ISO 15189 Accreditation',
+    'Our diagnostic laboratory has renewed its ISO 15189 accreditation following this year''s external assessment.',
+    'The department''s diagnostic laboratory has successfully renewed its ISO 15189 accreditation after a two-day on-site assessment by external auditors. The review covered our quality management system, equipment calibration records, staff competency files, and the full testing workflow from sample reception to result reporting. Accreditation is renewed on a regular cycle and confirms that our results meet recognised standards for technical competence and reliability. We thank the laboratory and quality teams for the preparation that made this possible, and we remain committed to the continuous improvement the standard requires.',
     'published',
     '2026-05-12',
     'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1200&q=80',
     'Dr. Sam Okonkwo'
   ),
   (
-    'car-t-cell-therapy-tracking',
-    'Real-Time CAR-T Cell Therapy Tracking',
-    'A new monitoring approach lets clinicians follow CAR-T cell expansion rates throughout treatment.',
-    'Chimeric antigen receptor (CAR) T-cell therapy has transformed outcomes for several hematologic malignancies, but monitoring cell expansion remains challenging. We describe a workflow that tracks CAR-T cell expansion rates in near real time, helping clinicians anticipate response and manage complications such as cytokine release syndrome earlier. Early results from our cohort suggest tighter monitoring correlates with improved management of adverse events.',
+    'new-analyzer-faster-blood-counts',
+    'New Analyzer Shortens Full Blood Count Turnaround',
+    'A newly commissioned haematology analyzer has reduced the average turnaround time for routine full blood counts.',
+    'We have commissioned a new automated haematology analyzer in the core laboratory. Since going live, the average turnaround time for routine full blood counts has dropped from around four hours to under ninety minutes, with samples flagged for abnormal results automatically routed for manual review. The analyzer was validated against our existing platform over several weeks before being brought into routine use. Clinicians should see faster results for ward and outpatient requests, while urgent samples continue to be prioritised as before.',
     'published',
     '2026-04-28',
-    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1733119883210-04f09d5f86df?auto=format&fit=crop&w=1200&q=80',
     'Prof. Naledi Khumalo'
   ),
   (
-    'open-source-blood-smear-dataset',
-    'Releasing 50,000 Anonymized Blood Smears for Global Research',
-    'We are contributing a large, fully anonymized dataset to accelerate hematology research worldwide.',
-    'Reproducible research depends on access to high-quality data. We are releasing 50,000 fully anonymized digital blood smears, reviewed and labeled by our hematopathology team, under an open research license. This article covers the de-identification process, the labeling schema, and how research groups can request access. We believe shared datasets are essential to building robust, generalizable diagnostic models.',
+    'jak2-molecular-testing-in-house',
+    'JAK2 V617F Molecular Testing Now Available In-House',
+    'Testing for the JAK2 V617F mutation is now performed on site, removing the need to send samples to an external reference lab.',
+    'The laboratory has brought JAK2 V617F mutation testing in-house. Previously these samples were referred to an external reference laboratory, which added several days to the reporting time. Performing the assay on site is expected to return results within the same week the sample is received. The test supports the investigation of suspected myeloproliferative neoplasms such as polycythaemia vera and essential thrombocythaemia. Requesting clinicians can order it through the usual electronic request form, and the laboratory team is available to advise on sample requirements.',
     'published',
     '2026-04-03',
-    'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1758656803198-eeea35110219?auto=format&fit=crop&w=1200&q=80',
     'Dr. Sam Okonkwo'
   ),
   (
-    'hemophilia-care-portal',
-    'Patient Portal Launched for Factor Replacement Logging',
-    'People living with hemophilia can now log factor replacement at home, giving care teams a clearer picture.',
-    'Consistent factor replacement logging improves care for people living with hemophilia, but paper logs are easily lost or incomplete. Our new patient-facing portal lets patients record infusions, bleeds, and symptoms from home, syncing securely with their care team. This article explains the privacy model behind the portal and how the data supports more responsive, personalized care.',
+    'patient-portal-bleeding-disorder-logging',
+    'Patient Portal Now Open for Bleeding Disorder Logging',
+    'People living with a bleeding disorder can now log treatment and symptoms from home, giving their care team a clearer picture.',
+    'Keeping an accurate record of factor replacement, bleeds, and symptoms helps the care team adjust treatment, but paper diaries are easily lost or left incomplete. Our patient portal now lets patients record this information from home, where it is shared securely with the haematology team. Access is offered to patients already under the care of the department. If you would like to use the portal, please speak to your care coordinator at your next appointment, and our team will help you get set up.',
     'published',
     '2026-03-19',
-    'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=80',
+    'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
     'Prof. Naledi Khumalo'
   )
 on conflict (slug) do nothing;

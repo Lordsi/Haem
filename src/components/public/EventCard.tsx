@@ -5,7 +5,10 @@ import { Icon } from "@/components/ui/Icon";
 
 export function EventCard({ event }: { event: EventItem }) {
   return (
-    <article className="group bg-surface-container-lowest border-outline-variant flex flex-col rounded-xl border p-lg transition-all hover:-translate-y-0.5 hover:shadow-sm">
+    <Link
+      href={`/events/${event.id}`}
+      className="group bg-surface-container-lowest border-outline-variant hover:border-primary flex flex-col rounded-xl border p-lg transition-colors"
+    >
       <div className="mb-md flex items-start justify-between">
         <div className="flex flex-col">
           <span className="text-secondary font-mono text-data-mono">
@@ -24,7 +27,7 @@ export function EventCard({ event }: { event: EventItem }) {
         ) : null}
       </div>
 
-      <h3 className="text-headline-md text-primary mb-sm leading-snug">
+      <h3 className="text-headline-md text-primary group-hover:text-on-tertiary-container mb-sm leading-snug transition-colors">
         {event.title}
       </h3>
       {event.description ? (
@@ -41,14 +44,11 @@ export function EventCard({ event }: { event: EventItem }) {
         ) : (
           <span />
         )}
-        <Link
-          href={`/events/${event.id}`}
-          className="text-primary inline-flex items-center gap-xs text-label-md font-bold hover:underline"
-        >
+        <span className="text-on-tertiary-container inline-flex items-center gap-xs text-label-md font-bold">
           View &amp; register
           <Icon name="arrow_right_alt" className="text-[18px]" />
-        </Link>
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }

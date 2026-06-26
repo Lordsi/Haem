@@ -40,10 +40,6 @@ export default async function LoginPage({
             <h2 className="text-display-lg text-primary mt-lg tracking-[0.12em]">
               WELCOME
             </h2>
-            <p className="text-body-md text-on-surface-variant mt-sm max-w-[24ch]">
-              Sign in to your hematology workspace for clinical care, research,
-              and patient management.
-            </p>
           </div>
 
           <div className="relative mt-lg min-h-[18rem] flex-1">

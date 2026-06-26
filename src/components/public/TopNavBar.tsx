@@ -30,7 +30,7 @@ export function TopNavBar({
   const signedIn = Boolean(dashboardHref);
 
   return (
-    <header className="bg-surface-container-lowest border-outline-variant sticky top-0 z-50 border-b">
+    <header className="bg-surface-container-lowest/80 border-outline-variant sticky top-0 z-50 border-b backdrop-blur-md">
       <nav className="container-max flex items-center justify-between px-lg py-md">
         <Link href="/" className="flex items-center gap-sm">
           <Icon name="biotech" className="text-primary text-[28px]" />
@@ -46,7 +46,7 @@ export function TopNavBar({
               href={link.href}
               className={
                 isActive(link.href)
-                  ? "text-body-md text-primary border-primary border-b-2 font-bold"
+                  ? "text-body-md text-primary border-tertiary border-b-2 font-bold"
                   : "text-body-md text-secondary hover:text-primary transition-colors"
               }
             >
@@ -100,7 +100,7 @@ export function TopNavBar({
       </nav>
 
       {open ? (
-        <div className="border-outline-variant border-t md:hidden">
+        <div className="bg-surface-container-lowest/95 border-outline-variant border-t backdrop-blur-md md:hidden">
           <div className="container-max flex flex-col px-lg py-sm">
             {NAV_LINKS.map((link) => (
               <Link
@@ -109,7 +109,7 @@ export function TopNavBar({
                 onClick={() => setOpen(false)}
                 className={`rounded-md px-sm py-3 text-body-md ${
                   isActive(link.href)
-                    ? "text-primary font-bold"
+                    ? "text-tertiary font-bold"
                     : "text-secondary"
                 }`}
               >

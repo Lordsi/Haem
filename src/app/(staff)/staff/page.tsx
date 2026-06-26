@@ -53,8 +53,9 @@ export default async function StaffDashboardPage() {
         />
         <StatCard
           icon="pending_actions"
-          label="Open"
-          value={String(statusCounts.open)}
+          label="Pending review"
+          value={String(statusCounts.pending_review)}
+          href="/staff/cases"
         />
         <StatCard
           icon="check_circle"
