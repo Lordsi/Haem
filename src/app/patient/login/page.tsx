@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Icon } from "@/components/ui/Icon";
-import { StaffLoginForm } from "./StaffLoginForm";
+import { PatientLoginForm } from "./PatientLoginForm";
 
 export const metadata: Metadata = {
-  title: "Staff Login | HEMA-Core",
+  title: "Patient Portal Login | HEMA-Core",
   robots: { index: false },
 };
 
-export default async function StaffLoginPage({
+export default async function PatientLoginPage({
   searchParams,
 }: {
   searchParams: Promise<{ next?: string }>;
@@ -18,16 +18,16 @@ export default async function StaffLoginPage({
     <main className="flex flex-1 items-center justify-center px-lg py-xl">
       <div className="bg-surface-container-lowest border-outline-variant w-full max-w-[26rem] rounded-2xl border p-xl">
         <div className="mb-lg text-center">
-          <div className="bg-secondary-container text-primary mx-auto mb-md flex h-14 w-14 items-center justify-center rounded-full">
-            <Icon name="lock" className="text-[28px]" />
+          <div className="bg-tertiary-fixed text-tertiary mx-auto mb-md flex h-14 w-14 items-center justify-center rounded-full">
+            <Icon name="person" className="text-[28px]" />
           </div>
-          <h1 className="text-headline-md text-primary mb-sm">Staff Login</h1>
+          <h1 className="text-headline-md text-primary mb-sm">Patient Portal</h1>
           <p className="text-body-sm text-on-surface-variant">
-            Sign in with your department credentials to access the clinical
-            workspace.
+            View your appointments, cases, and messages from your hematology
+            care team.
           </p>
         </div>
-        <StaffLoginForm next={next} />
+        <PatientLoginForm next={next} />
       </div>
     </main>
   );

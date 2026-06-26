@@ -94,7 +94,10 @@ npx supabase start      # applies migrations + seed automatically
 | `npm run build` | Production build |
 | `npm run start` | Run the production build |
 | `npm run lint` | ESLint |
-| `npm run verify:encryption` | Round-trip / tamper / rotation check for field encryption |
+| `npm run verify:encryption` | Round-trip / tamper check for field encryption |
+| `npm run verify:supabase` | Confirm API keys read live articles/events |
+| `npm run db:apply` | Apply SQL migrations + seed to `DATABASE_URL` |
+| `npm run seed:users` | Create sandbox accounts for all four roles (see `docs/SAMPLE_USERS.md`) |
 
 ## Project structure
 

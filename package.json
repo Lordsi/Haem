@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "verify:encryption": "node --conditions=react-server --import tsx scripts/verify-encryption.ts"
+    "verify:encryption": "node --conditions=react-server --import tsx scripts/verify-encryption.ts",
+    "db:apply": "node --env-file=.env.local scripts/apply-migrations.mjs",
+    "verify:supabase": "node --env-file=.env.local scripts/verify-supabase.mjs",
+    "seed:users": "node --conditions=react-server --env-file=.env.local --import tsx scripts/seed-sample-users.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
@@ -24,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "pg": "^8.22.0",
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
     "typescript": "^5"
