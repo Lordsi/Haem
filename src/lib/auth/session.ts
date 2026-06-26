@@ -57,7 +57,7 @@ export async function requireRole(
 ): Promise<UserProfile> {
   const profile = await getUserProfile();
   if (!profile) {
-    redirect("/staff/login");
+    redirect("/login");
   }
   if (!allowed.includes(profile.role)) {
     redirect(getRoleHomePath(profile.role));
@@ -69,7 +69,7 @@ export async function requireRole(
 export async function requireStaff(): Promise<UserProfile> {
   const profile = await getUserProfile();
   if (!profile) {
-    redirect("/staff/login");
+    redirect("/login");
   }
   if (!isStaffRole(profile.role)) {
     redirect(getRoleHomePath(profile.role));
@@ -81,7 +81,7 @@ export async function requireStaff(): Promise<UserProfile> {
 export async function requirePatient(): Promise<UserProfile> {
   const profile = await getUserProfile();
   if (!profile) {
-    redirect("/patient/login");
+    redirect("/login");
   }
   if (profile.role !== "patient") {
     redirect(getRoleHomePath(profile.role));

@@ -139,40 +139,46 @@
   font-variation-settings: "FILL" 1;
 }
 
-body {
-  background: var(--color-background);
-  color: var(--color-on-surface);
-  font-family: var(--font-sans);
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  text-rendering: optimizeLegibility;
-}
+/*
+  Element-level defaults live in @layer base so Tailwind utility classes
+  (text-headline-md, text-on-primary-fixed, etc.) always win when applied.
+  Bare headings/paragraphs still get a sensible fallback from the type scale.
+*/
+@layer base {
+  body {
+    background: var(--color-background);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
 
-/* Semantic heading scale — maps to design tokens */
-h1 {
-  font-size: var(--text-display-lg);
-  line-height: var(--text-display-lg--line-height);
-  letter-spacing: var(--text-display-lg--letter-spacing);
-  font-weight: var(--text-display-lg--font-weight);
-  color: var(--color-primary);
-}
+  h1 {
+    font-size: var(--text-display-lg);
+    line-height: var(--text-display-lg--line-height);
+    letter-spacing: var(--text-display-lg--letter-spacing);
+    font-weight: var(--text-display-lg--font-weight);
+  }
 
-h2 {
-  font-size: var(--text-headline-lg);
-  line-height: var(--text-headline-lg--line-height);
-  letter-spacing: var(--text-headline-lg--letter-spacing);
-  font-weight: var(--text-headline-lg--font-weight);
-}
+  h2 {
+    font-size: var(--text-headline-lg);
+    line-height: var(--text-headline-lg--line-height);
+    letter-spacing: var(--text-headline-lg--letter-spacing);
+    font-weight: var(--text-headline-lg--font-weight);
+  }
 
-h3 {
-  font-size: var(--text-headline-md);
-  line-height: var(--text-headline-md--line-height);
-  letter-spacing: var(--text-headline-md--letter-spacing);
-  font-weight: var(--text-headline-md--font-weight);
-}
+  h3 {
+    font-size: var(--text-headline-md);
+    line-height: var(--text-headline-md--line-height);
+    letter-spacing: var(--text-headline-md--letter-spacing);
+    font-weight: var(--text-headline-md--font-weight);
+  }
 
-p {
-  font-size: var(--text-body-md);
-  line-height: var(--text-body-md--line-height);
+  p {
+    font-size: var(--text-body-md);
+    line-height: var(--text-body-md--line-height);
+  }
 }
 
 /* Mono utility for lab values, IDs, and tabular data */

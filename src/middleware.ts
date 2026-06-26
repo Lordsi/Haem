@@ -1,21 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_STAFF_PATHS = ["/staff/login"];
-const PUBLIC_PATIENT_PATHS = ["/patient/login"];
-
-function isPublicStaffPath(pathname: string): boolean {
-  return PUBLIC_STAFF_PATHS.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
-}
-
-function isPublicPatientPath(pathname: string): boolean {
-  return PUBLIC_PATIENT_PATHS.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`),
-  );
-}
-
 function isStaffArea(pathname: string): boolean {
   return pathname === "/staff" || pathname.startsWith("/staff/");
 }
@@ -57,16 +42,9 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  if (isStaffArea(pathname) && !isPublicStaffPath(pathname) && !user) {
+  if ((isStaffArea(pathname) || isPatientArea(pathname)) && !user) {
     const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/staff/login";
-    loginUrl.searchParams.set("next", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  if (isPatientArea(pathname) && !isPublicPatientPath(pathname) && !user) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/patient/login";
+    loginUrl.pathname = "/login";
     loginUrl.searchParams.set("next", pathname);
     return NextResponse.redirect(loginUrl);
   }

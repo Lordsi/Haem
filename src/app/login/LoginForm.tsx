@@ -4,13 +4,12 @@ import { useActionState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
-import { signInPatient } from "./actions";
-import type { LoginState } from "@/app/staff/login/actions";
+import { signIn, type LoginState } from "./actions";
 
 const INITIAL: LoginState = { status: "idle" };
 
-export function PatientLoginForm({ next }: { next?: string }) {
-  const [state, action, pending] = useActionState(signInPatient, INITIAL);
+export function LoginForm({ next }: { next?: string }) {
+  const [state, action, pending] = useActionState(signIn, INITIAL);
 
   return (
     <form action={action} className="space-y-md text-left">
@@ -30,6 +29,7 @@ export function PatientLoginForm({ next }: { next?: string }) {
           autoComplete="email"
           required
           className="border-outline-variant bg-surface-container-lowest text-body-md w-full rounded-lg border px-md py-2.5 focus:outline-none focus:ring-2 focus:ring-primary"
+          placeholder="you@hospital.org"
         />
       </div>
 
@@ -64,7 +64,10 @@ export function PatientLoginForm({ next }: { next?: string }) {
       </Button>
 
       <p className="text-body-sm text-on-surface-variant text-center">
-        <Link href="/" className="text-primary inline-flex items-center gap-xs font-semibold hover:underline">
+        <Link
+          href="/"
+          className="text-primary inline-flex items-center gap-xs font-semibold hover:underline"
+        >
           <Icon name="arrow_back" className="text-[18px]" />
           Back to home
         </Link>

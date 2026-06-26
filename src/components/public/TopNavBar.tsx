@@ -48,13 +48,7 @@ export function TopNavBar() {
 
         <div className="flex items-center gap-md">
           <Link
-            href="/patient/login"
-            className="text-secondary hover:text-primary hidden text-body-sm font-semibold transition-colors sm:inline"
-          >
-            Patient Portal
-          </Link>
-          <Link
-            href="/staff/login"
+            href="/login"
             className="bg-primary text-on-primary rounded-full px-lg py-2 text-label-md font-bold transition-opacity hover:opacity-90"
           >
             Sign in
