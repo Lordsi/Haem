@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { requireStaff } from "@/lib/auth/session";
 import {
   getStaffDashboardStats,
@@ -8,8 +7,15 @@ import {
 } from "@/lib/data/clinical";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { StatusChip } from "@/components/ui/StatusChip";
-import { Icon } from "@/components/ui/Icon";
-import { formatTime } from "@/lib/format";
+import {
+  StatCard,
+  DashboardCard,
+  DashboardList,
+  DashboardRow,
+  AppointmentItem,
+  EmptyState,
+} from "@/components/app/dashboard";
+import { formatTime, greetingName } from "@/lib/format";
 import { caseStatusTone, caseStatusLabel } from "@/lib/clinical-display";
 
 export const metadata: Metadata = {
@@ -25,7 +31,7 @@ export default async function StaffDashboardPage() {
     listCases(profile.id),
   ]);
 
-  const greeting = profile.name?.split(" ")[0] ?? "there";
+  const greeting = greetingName(profile.name);
 
   return (
     <div className="space-y-xl">
@@ -65,123 +71,54 @@ export default async function StaffDashboardPage() {
       </div>
 
       <div className="grid gap-xl lg:grid-cols-2">
-        <section className="bg-surface-container-lowest border-outline-variant rounded-xl border p-lg">
-          <div className="mb-md flex items-center justify-between">
-            <h2 className="text-headline-md text-primary">Recent cases</h2>
-            <Link
-              href="/staff/cases"
-              className="text-primary text-body-sm font-semibold hover:underline"
-            >
-              View all
-            </Link>
-          </div>
+        <DashboardCard title="Recent cases" viewAllHref="/staff/cases">
           {recentCases.length === 0 ? (
-            <p className="text-body-sm text-on-surface-variant">
-              No cases assigned yet.
-            </p>
+            <EmptyState>No cases assigned yet.</EmptyState>
           ) : (
-            <ul className="divide-outline-variant divide-y">
+            <DashboardList>
               {recentCases.slice(0, 5).map((c) => (
-                <li key={c.id}>
-                  <Link
-                    href={`/staff/cases/${c.id}`}
-                    className="hover:bg-surface-container-low -mx-sm flex items-center justify-between rounded-lg px-sm py-md transition-colors"
-                  >
-                    <div>
-                      <p className="text-body-md font-semibold">
-                        {c.patient.name}
-                      </p>
-                      <p className="text-data-mono text-on-surface-variant font-mono">
-                        {c.patient.patient_code}
-                      </p>
-                    </div>
+                <DashboardRow
+                  key={c.id}
+                  href={`/staff/cases/${c.id}`}
+                  title={c.patient.name}
+                  subtitle={
+                    <span className="text-data-mono font-mono">
+                      {c.patient.patient_code}
+                    </span>
+                  }
+                  trailing={
                     <StatusChip tone={caseStatusTone(c.status)}>
                       {caseStatusLabel(c.status)}
                     </StatusChip>
-                  </Link>
-                </li>
+                  }
+                />
               ))}
-            </ul>
+            </DashboardList>
           )}
-        </section>
+        </DashboardCard>
 
-        <section className="bg-surface-container-lowest border-outline-variant rounded-xl border p-lg">
-          <h2 className="text-headline-md text-primary mb-md">
-            Upcoming appointments
-          </h2>
+        <DashboardCard
+          title="Upcoming appointments"
+          viewAllHref="/staff/calendar"
+        >
           {stats.upcomingAppointments.length === 0 ? (
-            <p className="text-body-sm text-on-surface-variant">
-              No scheduled appointments.
-            </p>
+            <EmptyState>No scheduled appointments.</EmptyState>
           ) : (
-            <ul className="space-y-md">
+            <DashboardList>
               {stats.upcomingAppointments.map((appt) => (
-                <li
+                <AppointmentItem
                   key={appt.id}
-                  className="bg-surface-container-low flex gap-md rounded-lg p-md"
-                >
-                  <div className="bg-secondary-container text-primary flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-lg">
-                    <span className="text-label-md leading-none">
-                      {new Date(appt.appointment_date)
-                        .toLocaleDateString("en-US", { month: "short" })
-                        .toUpperCase()}
-                    </span>
-                    <span className="text-body-sm font-bold leading-none">
-                      {new Date(appt.appointment_date).getDate()}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-body-md font-semibold">
-                      {appt.patient_name}
-                    </p>
-                    <p className="text-body-sm text-on-surface-variant">
-                      {formatTime(appt.appointment_date)} ·{" "}
-                      {appt.purpose ?? "Appointment"}
-                    </p>
-                  </div>
-                </li>
+                  date={appt.appointment_date}
+                  title={appt.patient_name}
+                  subtitle={`${formatTime(appt.appointment_date)} · ${
+                    appt.purpose ?? "Appointment"
+                  }`}
+                />
               ))}
-            </ul>
+            </DashboardList>
           )}
-        </section>
+        </DashboardCard>
       </div>
     </div>
   );
-}
-
-function StatCard({
-  icon,
-  label,
-  value,
-  href,
-}: {
-  icon: string;
-  label: string;
-  value: string;
-  href?: string;
-}) {
-  const content = (
-  <>
-      <Icon name={icon} className="text-primary text-[24px]" />
-      <div>
-        <p className="text-data-mono text-primary font-mono text-2xl font-bold">
-          {value}
-        </p>
-        <p className="text-body-sm text-on-surface-variant">{label}</p>
-      </div>
-    </>
-  );
-
-  const className =
-    "bg-surface-container-lowest border-outline-variant flex items-center gap-md rounded-xl border p-lg";
-
-  if (href) {
-    return (
-      <Link href={href} className={`${className} hover:bg-surface-container-low transition-colors`}>
-        {content}
-      </Link>
-    );
-  }
-
-  return <div className={className}>{content}</div>;
 }

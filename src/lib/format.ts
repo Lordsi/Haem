@@ -34,3 +34,20 @@ export function formatTime(value: string | null | undefined): string {
     minute: "2-digit",
   });
 }
+
+const HONORIFIC = /^(dr|prof|mr|mrs|ms|miss|sr|sister|nurse)\.?$/i;
+
+/**
+ * Short, friendly name for dashboard greetings.
+ * - Titled names keep the honorific + surname, e.g. "Prof. Naledi Khumalo" -> "Prof. Khumalo".
+ * - Untitled names use the first name, e.g. "Jordan Mbeki" -> "Jordan".
+ * Falls back to "there" when no usable name is available.
+ */
+export function greetingName(fullName: string | null | undefined): string {
+  const parts = fullName?.trim().split(/\s+/).filter(Boolean) ?? [];
+  if (parts.length === 0) return "there";
+  if (HONORIFIC.test(parts[0]) && parts.length > 1) {
+    return `${parts[0]} ${parts[parts.length - 1]}`;
+  }
+  return parts[0];
+}
