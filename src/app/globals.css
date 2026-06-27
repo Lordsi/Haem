@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* Self-hosted Material Symbols icon font. Served from our own origin and
+   preloaded in layout.tsx, so there's no third-party round-trip. font-display:
+   block keeps the glyph blank (never the raw ligature name) while it loads,
+   which prevents the icon names from flashing on slow connections. */
+@font-face {
+  font-family: "Material Symbols Outlined";
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: block;
+  src: url("/fonts/material-symbols-outlined.woff2") format("woff2");
+}
+
 /*
   Clinical Precision design system.
   Ported from the Stitch mockups' DESIGN.md token set into Tailwind v4 @theme.
@@ -133,6 +145,16 @@
 }
 
 .material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
   font-variation-settings:
     "FILL" 0,
     "wght" 400,

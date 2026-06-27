@@ -41,9 +41,15 @@ export default function RootLayout({
       className={`${lexend.variable} ${plexMono.variable} h-full antialiased`}
     >
       <head>
+        {/* Preload the self-hosted Material Symbols font so glyphs are ready as
+            early as possible — no third-party round-trip and no flash of the
+            raw ligature names on slow connections. */}
         <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+          rel="preload"
+          href="/fonts/material-symbols-outlined.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
         />
       </head>
       <body className="bg-surface-bright text-on-surface min-h-full flex flex-col font-sans text-body-md">
